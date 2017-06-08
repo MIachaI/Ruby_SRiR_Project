@@ -1,0 +1,3 @@
+To jest zapis w pliku testowym numer 1.
+i mam dwie linie
+a nawet trzy

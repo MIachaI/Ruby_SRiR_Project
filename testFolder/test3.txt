@@ -1,0 +1,1 @@
+To jest zapis w pliku testowym numer 3.

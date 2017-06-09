@@ -1,7 +1,7 @@
 # @author mu
 class Code
   attr_accessor :code
-  attr_reader :output, :syntax
+  attr_reader :output, :syntax, :syntax_error_msg
 
   def initialize(code=nil)
     @code = code
@@ -23,6 +23,7 @@ class Code
         return @syntax
       else
         @syntax = false
+        @syntax_error_msg = code_valid  # zapis informacji z błędem
         return @syntax
       end
     else
@@ -52,6 +53,7 @@ class Code
       file.puts(@code)
       file.close
 
+      # jeżeli klient chce żeby kod został wywołany z argumentami command line
       if parameters.nil?
         @output = `ruby temp.rb`
       else

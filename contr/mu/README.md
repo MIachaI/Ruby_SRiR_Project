@@ -5,6 +5,17 @@
 *save_code_to_file(name)* zapisuje kod do pliku o wskazanej nazwie <br/>
 *code_output(parameters)* zwraca odpowiedź konsoli po wykonaniu programu <br/>
 
+## class *Server*
+odbiera tylko 1000 znakow (do poprawy)
+```ruby
+server = TCPServer.open(@port)
+    loop {
+      client = server.accept
+      codex = client.recv(1000)
+      }
+```
+to co [wyszło](http://imgur.com/a/qAR8Z)
+
 ### Źródełka
 
 * [How to check ruby syntax error in ruby code](https://stackoverflow.com/questions/27272463/how-to-check-ruby-syntax-error-in-ruby-code)

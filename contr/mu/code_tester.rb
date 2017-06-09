@@ -35,7 +35,9 @@ class Code
   # zapis kodu do pliku
   # @param filename nazwa pliku
   def save_code_to_file(filename="src.rb")
-    file = File.new(filename, "w")
+    directory_name = "files"
+    Dir.mkdir(directory_name) unless File.exists?(directory_name)
+    file = File.new(directory_name + "/" + filename, "w")
     file.puts(@code)
     file.close
   end

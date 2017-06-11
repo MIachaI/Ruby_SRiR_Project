@@ -1,0 +1,17 @@
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+Gem::Specification.new do |spec|
+  spec.name          = "Part3"
+  spec.version       = '1.0'
+  spec.authors       = ["Basia Ścibior"]
+  spec.email         = ["barbarascibior@gmail.com"]
+  spec.summary       = %q{SRiR Lab Project - Part 3}
+  spec.description   = %q{Executing recieved code}
+
+  spec.files         = ['lib/NAME.rb']
+  spec.executables   = ['bin/NArake testME']
+  spec.test_files    = ['tests/test_program.rb']
+  spec.require_paths = ["lib"]
+end

@@ -10,61 +10,76 @@ the data inside. I will implement comparision algorythm later.
   FileLengthTab = []
   FileHeightTab = []
   FileComplexityTab =[]
+  FileLoopCounterTab =[]
 # Compare all files in selected input directory
 # @Return Report.txt as summary
-public def compareFiles()
+public string def compareFiles()
   programLength=0;
   programHeigth=0;
   programComplexity=0;
-  Dir.foreach("testFolder") {
+  programLoops=0;
+
+
+  Dir.foreach("files") {
 
       |currentFile|
     if (currentFile.length<4)
       next;
 
     end
-    puts "Opening: #{currentFile}"
-    puts "Extracting..."
-    file = File.new("testFolder/#{currentFile}", "r")
+    file = File.new("files/#{currentFile}", "r")
     while (line = file.gets)
 
       if line.include? "end"
         programComplexity+=1
       end
+      if line.include? "while ("
+        programLoops+=1
+      end
+      if line.include? "while("
+        programLoops+=1;
+      end
       programLength += line.length
       programHeigth=programHeigth+1
     end
-    puts "Closing file #{currentFile}\n\n"
 
     file.close
     FileComplexityTab.push(programComplexity)
     FileHeightTab.push(programHeigth)
     FileNameTab.push(currentFile)
     FileLengthTab.push(programLength)
+    FileLoopCounterTab.push(programLoops)
 
     programLength=0;
     programHeigth=0;
     programComplexity=0;
+    programLoops=0;
   }
+string response
 
-  open('report.txt', 'w') do |f|
-    f.printf("Length - how many characters are in file\n")
-    f.printf("Height - how many lines this file contains\n")
-    f.printf("Complexity - how many methods this file use\n\n")
+      response =
+          "Length - how many characters are in file\n"+
+    "Height - how many lines this file contains\n"+
+    "Complexity - how many methods this file use\n"+
+    "Loops - how many loops file contains\n\n"
     while (FileNameTab.size!=0)
-    f.printf("File name: ")
-    f.puts(FileNameTab.pop)
-    f.printf("File length: ")
-    f.puts(FileLengthTab.pop)
-    f.printf("Height: ")
-    f.puts(FileHeightTab.pop)
-    f.printf("Complexity: ")
-    f.puts(FileComplexityTab.pop)
-    f.puts("\n\n")
-   end
-  end
-end
-end
+      response +=
 
-testObject = CollectAndComparePrograms.new()
-testObject.compareFiles
+      "File name: "+
+      FileNameTab.pop+
+      "File length: "+
+      FileLengthTab.pop+
+      "Height: "+
+      FileHeightTab.pop+
+      "Complexity: "+
+      FileComplexityTab.pop+
+      "Loops:"+
+      FileLoopCounterTab.pop+
+      "\n\n"
+    end
+
+end
+  return response
+  end
+
+

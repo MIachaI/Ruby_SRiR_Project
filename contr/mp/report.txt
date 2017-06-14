@@ -1,0 +1,26 @@
+Length - how many characters are in file
+Height - how many lines this file contains
+Complexity - how many methods this file use
+Loops - how many loops file contains
+
+File name: test2.txt
+File length: 40
+Height: 1
+Complexity: 0
+Loops:0
+
+
+File name: test1.txt
+File length: 1477
+Height: 59
+Complexity: 8
+Loops:2
+
+
+File name: test3.txt
+File length: 1558
+Height: 66
+Complexity: 9
+Loops:0
+
+

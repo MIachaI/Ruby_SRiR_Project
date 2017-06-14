@@ -55,7 +55,7 @@ def compareFiles()
     programComplexity=0;
     programLoops=0;
   }
-string response
+
 
       response =
           "Length - how many characters are in file\n"+
@@ -66,20 +66,19 @@ string response
       response +=
 
       "File name: "+
-      FileNameTab.pop+
+      FileNameTab.pop.to_s+"\n"+
       "File length: "+
-      FileLengthTab.pop+
+      FileLengthTab.pop.to_s+"\n"+
       "Height: "+
-      FileHeightTab.pop+
+      FileHeightTab.pop.to_s+"\n"+
       "Complexity: "+
-      FileComplexityTab.pop+
+      FileComplexityTab.pop.to_s+"\n"+
       "Loops:"+
-      FileLoopCounterTab.pop+
+      FileLoopCounterTab.pop.to_s+"\n"+
       "\n\n"
     end
-  return response
+  response
 end
-
-  end
+end
 
 

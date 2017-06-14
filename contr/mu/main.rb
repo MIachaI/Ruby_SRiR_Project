@@ -4,5 +4,4 @@ require_relative "server"
 port = 1999
 server = Server.new(port)
 puts "Zaczynam nowy serwer na porcie #{port}"
-puts CollectAndComparePrograms.ComparePrograms
 server.run

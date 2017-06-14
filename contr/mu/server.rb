@@ -22,9 +22,11 @@ class Server
           filename = time.year.to_s + "_" + time.month.to_s + "_" + time.day.to_s + "_" + time.hour.to_s + time.min.to_s + time.sec.to_s + ".rb"
           puts "Zapisano kod klienta do pliku #{filename}"
           code.save_code_to_file(filename)
+          cdcmppr = CollectAndComparePrograms.new
           @server_response = "\rKod poprawny"
           @server_response += "\nOutput programu: \n"
           @server_response += code.code_output
+          @server_response += cdcmppr.compareFiles
         else
           @server_response = "\nBłąd. Opis: \n"
           @server_response += code.syntax_error_msg

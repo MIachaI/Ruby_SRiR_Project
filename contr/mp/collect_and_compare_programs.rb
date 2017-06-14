@@ -13,7 +13,7 @@ the data inside. I will implement comparision algorythm later.
   FileLoopCounterTab =[]
 # Compare all files in selected input directory
 # @Return Report.txt as summary
-public string def compareFiles()
+def compareFiles()
   programLength=0;
   programHeigth=0;
   programComplexity=0;
@@ -77,9 +77,9 @@ string response
       FileLoopCounterTab.pop+
       "\n\n"
     end
-
-end
   return response
+end
+
   end
 
 

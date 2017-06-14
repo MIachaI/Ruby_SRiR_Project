@@ -17,12 +17,12 @@ Sockety mogą być użyte w technologii RPC, aby zapewnić komunikację z serwer
  
 4)    Testy oprogramowania
  
- 
 5)    Kody źródłowe oraz skrypty
  
 6)    Analiza porównawcza
  
 7)    Bibliografia:
+
 [1] Introduction to Distributed Systems. Arpaci-Dusseau, Remzi H., Andrea C. (2014), Arpaci-Dusseau Books
 
 [2] www.students.mimuw.edu.pl - Laboratorium Komputerowe Wydziału MIM UW (dostęp 06.06.2017 r.)

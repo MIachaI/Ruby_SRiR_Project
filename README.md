@@ -24,8 +24,13 @@ Sockety mogą być użyte w technologii RPC, aby zapewnić komunikację z serwer
  
 7)    Bibliografia:
 [1] Introduction to Distributed Systems. Arpaci-Dusseau, Remzi H., Andrea C. (2014), Arpaci-Dusseau Books
+
 [2] www.students.mimuw.edu.pl - Laboratorium Komputerowe Wydziału MIM UW (dostęp 06.06.2017 r.)
+
 [3] www.ruby-doc.org – Pomoc i dokumentacja dla języka programowania Ruby (dostęp 06.06.2017 r.)
+
 [4] Beginning Ruby: From Novice to Professional. Peter Cooper. (2007), Apress [strony 303-308]
+
 [5] Ruby Programmin for Medicine and Biology. Jules J. Berman (2008), Jones and Bartlett Publishers [strona 55]
+
 [6] Programowanie równoległe i rozproszone, praca zbiorowa pod redakcją Andrzeja Karbowskiego i Ewy Niewiadomskiej-Szynkiewicz, Oficyna wydawnicza Politechniki Warszawskiej, Warszawa 2009, ISBN 978-83-7207-803-2 [strony 242-261]

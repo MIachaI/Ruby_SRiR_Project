@@ -3,24 +3,27 @@ class CollectAndComparePrograms
 This is basic concept of my part for the SRiR project. It requires just signal
 from the main part of the program to start searching for stored files.
 Once it found any, it loops for each file in directory and extracting
-the data inside. I will implement comparision algorythm later.
+the data inside. The algorythm looks for end, while and for key words,
+and also checks how many lines and characters this code have.
 =end
+
 
   FileNameTab = []
   FileLengthTab = []
   FileHeightTab = []
   FileComplexityTab =[]
   FileLoopCounterTab =[]
+  response =''
+
+
 # Compare all files in selected input directory
-# @Return Report.txt as summary
-def compareFiles()
+# @Return report (String)
+def compareFiles(folderName ='files')
   programLength=0;
-  programHeigth=0;
+  programHeight=0;
   programComplexity=0;
   programLoops=0;
-
-
-  Dir.foreach("files") {
+  Dir.foreach(folderName) {
 
       |currentFile|
     if (currentFile.length<4)
@@ -39,25 +42,33 @@ def compareFiles()
       if line.include? "while("
         programLoops+=1;
       end
+      if line.include? "for("
+        programLoops+=1;
+      end
+      if line.include? "for ("
+        programLoops+=1;
+      end
       programLength += line.length
-      programHeigth=programHeigth+1
+      programHeight=programHeight+1
     end
 
     file.close
     FileComplexityTab.push(programComplexity)
-    FileHeightTab.push(programHeigth)
+    FileHeightTab.push(programHeight)
     FileNameTab.push(currentFile)
     FileLengthTab.push(programLength)
     FileLoopCounterTab.push(programLoops)
 
     programLength=0;
-    programHeigth=0;
+    programHeight=0;
     programComplexity=0;
     programLoops=0;
   }
+counter = CollectAndComparePrograms.new()
+  liczba = counter.countFiles(folderName).to_s
 
-
-      response =
+      response = liczba +
+      " files found in #{folderName} directory\n\n"
           "Length - how many characters are in file\n"+
     "Height - how many lines this file contains\n"+
     "Complexity - how many methods this file use\n"+
@@ -76,9 +87,42 @@ def compareFiles()
       "Loops:"+
       FileLoopCounterTab.pop.to_s+"\n"+
       "\n\n"
+      end
+  return response
     end
-  response
+
+# check if there is invoked folder
+  #@return if false - simple information "no folder #{folderName} found!"
+  # if true - the method proceed to regular return which is report
+def checkFolder(folderName='files')
+ if Dir.exist?(folderName)
+ printf 'Result:'
+ puts "\n"
+ proba = CollectAndComparePrograms.new
+ response = proba.compareFiles
+
+   return response
+ else
+   response = "no folder #{folderName} found!"
+   return response
+ end
 end
+
+# this method is to check how many files are in certain directory to compare
+  #@return number of files (int)
+  def countFiles(folderName='files')
+    numberOfFiles=0
+    Dir.foreach(folderName){      |currentFile|
+      if (currentFile.length<4)
+        next;
+      end
+      numberOfFiles+=1
+    }
+    return numberOfFiles
+  end
 end
+#tak = CollectAndComparePrograms.new
+#tak.main
+#puts tak.checkFolder('files')
 
 

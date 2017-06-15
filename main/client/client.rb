@@ -1,20 +1,29 @@
 require "xmlrpc/client"
 
-if ARGV.empty?
-  puts "Podaj nazwę pliku z kodem"
-  filename = gets.chomp
-else
-  filename = ARGV[0]
+ip = "127.0.0.1"
+if !ARGV.empty?
+  ip = ARGV[0]
 end
 
-server = XMLRPC::Client.new("127.0.0.1", "/RPC2", 8080)
+puts "Podaj nazwę pliku z kodem"
+filename = gets.chomp
+parameters = nil
+puts "Podaj parametry do wywołania kodu: "
+parameters = gets.split(" ")
+
+server = XMLRPC::Client.new(ip, "/RPC2", 8080)
 begin
-  param = server.call("mu.check_syntax", File.new(filename).read)
-  prog_resp = server.call("mu.code_output", File.new(filename).read, [10,43])
+  code = File.new(filename).read
+  param = server.call("mu.check_syntax", code)
+  prog_resp = server.call("mu.code_output", code, parameters)
   report = server.call("mp.collect_and_compare_programs", "files")
   puts "Poprawność składni: #{param}"
-  puts "Odpowiedź programu: #{prog_resp}"
-  puts report
+  if param
+    puts report
+    puts "Odpowiedź programu: #{prog_resp}"
+  else
+    puts "Nie udało się wykonać kodu"
+  end
 rescue XMLRPC::FaultException => e
   puts "Error:"
   puts e.faultCode

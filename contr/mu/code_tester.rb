@@ -12,6 +12,11 @@ class Code
   # @return kod poprawny ? true : false
   def check_syntax
     if @code != nil
+      if @code.include?("gets")
+        @syntax = false
+        @syntax_error_msg = "Kod nie może zawierać linii blokujących program"
+        return @syntax
+      end
       file = File.new("temp.rb","w")
       file.puts(@code)
       file.close

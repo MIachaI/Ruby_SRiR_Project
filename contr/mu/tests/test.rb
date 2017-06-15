@@ -1,5 +1,6 @@
 require 'test/unit'
 require_relative '../code_tester'
+require_relative '../comm'
 
 class TestCodeValidator < Test::Unit::TestCase
 
@@ -29,5 +30,30 @@ class TestCodeValidator < Test::Unit::TestCase
     assert_equal(
       false,
       Code.new(File.open("test_files/code_with_user_input.rb").read).check_syntax)
+  end
+
+  # Message class tests
+  def test_message_generator
+    assert_equal(
+      "<text>This is the code</text>\n<param>those are params 5</param>",
+      Message.new("This is the code",["those", "are", "params", 5]).generate_message
+    )
+  end
+
+  def test_get_vals
+    pattern = Message.new("This is code",["those", "are", "params"])
+    msg = Message.new().get_vals("<text>This is code</text><trash>trash</trash><param>those are params</param>")
+    # sprawdź czy tekst (kod) jest wczytywany prawidłowo
+    assert_equal(pattern.text, msg.text)
+
+    # sprawdź czy parametry są wczytywane prawidłowo
+    assert_equal(pattern.parameters, msg.parameters)
+  end
+
+  def test_empty_vals
+    pattern = Message.new(nil,nil)
+    msg = Message.new().get_vals("Test code tihs one <text><param>")
+    assert_equal(pattern.text, msg.text)
+    assert_equal(pattern.parameters, msg.parameters)
   end
 end

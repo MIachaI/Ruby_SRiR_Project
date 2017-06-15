@@ -67,7 +67,7 @@ class Code
         parameters.each { |parameter| par_string += " " + parameter.to_s }
         @output = `ruby temp.rb#{par_string}`
       end
-      `rm temp.rb`
+      File.delete('temp.rb')
       return @output
     else
       return "Błąd! Niepoprawna składnia"

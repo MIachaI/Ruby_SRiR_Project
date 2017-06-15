@@ -6,7 +6,7 @@ class Code
 
   def initialize(code=nil)
     @code = code
-    @syntax = false; # syntax variable tells if code provided is correct
+    @syntax = check_syntax # syntax variable tells if code provided is correct
   end
 
   # Sprawdź składnię kodu @code

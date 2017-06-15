@@ -1,11 +1,12 @@
 # @author mu
+
 class Code
   attr_accessor :code
   attr_reader :output, :syntax, :syntax_error_msg
 
   def initialize(code=nil)
     @code = code
-    @syntax = false; # syntax variable tells if code provided is correct
+    @syntax = check_syntax # syntax variable tells if code provided is correct
   end
 
   # Sprawdź składnię kodu @code
@@ -21,7 +22,7 @@ class Code
       file.puts(@code)
       file.close
       code_valid = `ruby -c temp.rb`
-      `rm temp.rb`
+      File.delete('temp.rb')
       # check if @code syntax is correct
       if code_valid == "Syntax OK\n"
         @syntax = true
@@ -66,7 +67,7 @@ class Code
         parameters.each { |parameter| par_string += " " + parameter.to_s }
         @output = `ruby temp.rb#{par_string}`
       end
-      `rm temp.rb`
+      File.delete('temp.rb')
       return @output
     else
       return "Błąd! Niepoprawna składnia"

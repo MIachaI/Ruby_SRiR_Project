@@ -11,7 +11,7 @@ s = XMLRPC::Server.new(port)
 
 s.add_handler("mu.check_syntax") do |code|
   cd = Code.new(code)
-  result = cd.check_syntax
+  result = cd.syntax
   # jeśli kod poprawny - zapisz do pliku
   if result
     time = Time.new

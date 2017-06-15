@@ -3,6 +3,7 @@ require "xmlrpc/client"
 ip = "127.0.0.1"
 if !ARGV.empty?
   ip = ARGV[0]
+  ARGV.clear
 end
 
 puts "Podaj nazwę pliku z kodem"
@@ -15,10 +16,10 @@ server = XMLRPC::Client.new(ip, "/RPC2", 8080)
 begin
   code = File.new(filename).read
   param = server.call("mu.check_syntax", code)
-  prog_resp = server.call("mu.code_output", code, parameters)
-  report = server.call("mp.collect_and_compare_programs", "files")
   puts "Poprawność składni: #{param}"
   if param
+    prog_resp = server.call("mu.code_output", code, parameters)
+    report = server.call("mp.collect_and_compare_programs", "files")
     puts report
     puts "Odpowiedź programu: #{prog_resp}"
   else

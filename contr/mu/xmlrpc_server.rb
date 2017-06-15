@@ -9,6 +9,8 @@ end
 
 s = XMLRPC::Server.new(port)
 
+program= ""
+
 s.add_handler("mu.check_syntax") do |code|
   cd = Code.new(code)
   result = cd.check_syntax
@@ -27,8 +29,16 @@ s.add_handler("mp.collect_and_compare_programs") do |folderName|
   result
 end
 
+#ms
+s.add_handler("ms.send_program") do |receivecode|
+  program = receivecode
+  check_syntax(program)
+end
+
 s.set_default_handler do |name, *args|
   raise XMLRPC::FaultException.new(-99, "Method #{name} missing or wrong number of parameters!")
 end
+
+
 
 s.serve

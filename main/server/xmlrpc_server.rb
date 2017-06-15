@@ -17,8 +17,6 @@ s.add_handler("mu.check_syntax") do |code|
     time = Time.new
     filename = time.year.to_s + "_" + time.month.to_s + "_" + time.day.to_s + "_" + time.hour.to_s + time.min.to_s + time.sec.to_s + ".rb"
     cd.save_code_to_file(filename)
-  else
-    result = code.syntax_error_msg
   end
   result
 end

@@ -18,24 +18,15 @@ class Code
         @syntax_error_msg = "Kod nie może zawierać linii blokujących program"
         return @syntax
       end
-      file = File.new("temp.rb","w")
-      file.puts(@code)
-      file.close
-      code_valid = `ruby -c temp.rb`
-      File.delete('temp.rb')
-      # check if @code syntax is correct
-      if code_valid == "Syntax OK\n"
+      begin
+        RubyVM::InstructionSequence.compile(code)
         @syntax = true
-        return @syntax
-      else
+      rescue SyntaxError => e
         @syntax = false
-        @syntax_error_msg = code_valid  # zapis informacji z błędem
-        return @syntax
       end
     else
-      puts "No code provided"
+      @syntax_error_msg = "Brak kodu"
       @syntax = false
-      return @syntax
     end
   end
 

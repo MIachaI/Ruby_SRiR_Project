@@ -29,10 +29,9 @@ s.add_handler("mp.collect_and_compare_programs") do |folderName|
   result
 end
 
-#ms
-s.add_handler("ms.send_program") do |receivecode|
-  program = receivecode
-  check_syntax(program)
+s.add_handler("mu.code_output") do |code, parameters|
+  cd = Code.new(code)
+  cd.code_output(parameters)
 end
 
 s.set_default_handler do |name, *args|

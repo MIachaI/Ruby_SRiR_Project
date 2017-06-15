@@ -32,6 +32,13 @@ class TestCodeValidator < Test::Unit::TestCase
       Code.new(File.open("test_files/code_with_user_input.rb").read).check_syntax)
   end
 
+  def test_incorrect_code
+    assert_equal(
+      false,
+      Code.new(File.open("test_files/incorrect_code.rb").read).check_syntax
+    )
+  end
+
   # Message class tests
   def test_message_generator
     assert_equal(

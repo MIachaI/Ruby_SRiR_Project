@@ -16,6 +16,7 @@ and also checks how many lines and characters this code have.
   FileHeightTab = []
   FileComplexityTab =[]
   FileLoopCounterTab =[]
+  FileImportsTab =[]
   response =''
 
 

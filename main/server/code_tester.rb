@@ -1,4 +1,7 @@
 # @author mu
+
+require 'FileUtils'
+
 class Code
   attr_accessor :code
   attr_reader :output, :syntax, :syntax_error_msg
@@ -21,7 +24,7 @@ class Code
       file.puts(@code)
       file.close
       code_valid = `ruby -c temp.rb`
-      `rm temp.rb`
+      FileUtils.rm('temp.rb')
       # check if @code syntax is correct
       if code_valid == "Syntax OK\n"
         @syntax = true

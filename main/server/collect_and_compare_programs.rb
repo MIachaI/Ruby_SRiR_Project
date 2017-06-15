@@ -22,78 +22,90 @@ and also checks how many lines and characters this code have.
 # Compare all files in selected input directory
 # @Return report (String)
 
-def compareFiles(folderName ='files')
-  programLength=0;
-  programHeight=0;
-  programComplexity=0;
-  programLoops=0;
-  Dir.foreach(folderName) {               # iterate throught all files in directory
-
-      |currentFile|
-    if (currentFile.length<4)
-      next;
-
-    end
-    file = File.new("files/#{currentFile}", "r")
-    while (line = file.gets)
-
-      if line.include? "end"
-        programComplexity+=1
-      end
-      if line.include? "while ("
-        programLoops+=1
-      end
-      if line.include? "while("
-        programLoops+=1;
-      end
-      if line.include? "for("
-        programLoops+=1;
-      end
-      if line.include? "for ("
-        programLoops+=1;
-      end
-      programLength += line.length
-      programHeight=programHeight+1
-    end
-
-    file.close
-    FileComplexityTab.push(programComplexity)
-    FileHeightTab.push(programHeight)
-    FileNameTab.push(currentFile)
-    FileLengthTab.push(programLength)
-    FileLoopCounterTab.push(programLoops)
-
+  def compareFiles(folderName ='files')
     programLength=0;
     programHeight=0;
     programComplexity=0;
     programLoops=0;
-  }
-counter = CollectAndComparePrograms.new()
-  numberOfFiles = counter.countFiles(folderName).to_s
+    programImports=0;
+    Dir.foreach(folderName) {
 
-      response = numberOfFiles +
-      " files found in #{folderName} directory\n\n"
-          "Length - how many characters are in file\n"+
-    "Height - how many lines this file contains\n"+
-    "Complexity - how many methods this file use\n"+
-    "Loops - how many loops file contains\n\n"
+        |currentFile|
+      if (currentFile.length<4)
+        next;
+
+      end
+      file = File.new("files/#{currentFile}", "r")
+      while (line = file.gets)
+
+        if line.include? "end"
+          programComplexity+=1
+        end
+        if line.include? "while ("
+          programLoops+=1
+        end
+        if line.include? "while("
+          programLoops+=1;
+        end
+        if line.include? "for("
+          programLoops+=1;
+        end
+        if line.include? "for ("
+          programLoops+=1;
+        end
+        if line.include? "require "
+          programImports+=1
+        end
+        if line.include? "require_relative"
+          programImports+=1
+        end
+        programLength += line.length
+        programHeight=programHeight+1
+      end
+
+      file.close
+      FileComplexityTab.push(programComplexity)
+      FileHeightTab.push(programHeight)
+      FileNameTab.push(currentFile)
+      FileLengthTab.push(programLength)
+      FileLoopCounterTab.push(programLoops)
+      FileImportsTab.push(programImports)
+
+      programLength=0;
+      programHeight=0;
+      programComplexity=0;
+      programLoops=0;
+      programImports=0;
+    }
+    counter = CollectAndComparePrograms.new()
+    filesNumber = counter.countFiles(folderName).to_s
+
+    response = filesNumber +
+        " files found in #{folderName} directory\n\n"+
+        "Length - how many characters are in file\n"+
+        "Height - how many lines this file contains\n"+
+        "Complexity - how many methods this file use\n"+
+        "Loops - how many loops file contains\n"+
+        "Imports - how many files this program requires\n\n"
     while (FileNameTab.size!=0)
       response +=
 
-      "File name: "+
-      FileNameTab.pop.to_s+"\n"+
-      "File length: "+
-      FileLengthTab.pop.to_s+"\n"+
-      "Height: "+
-      FileHeightTab.pop.to_s+"\n"+
-      "Complexity: "+
-      FileComplexityTab.pop.to_s+"\n"+
-      "Loops:"+
-      FileLoopCounterTab.pop.to_s+"\n"+
-      "\n\n"
-      end
-  return response
+          "File name: "+
+              FileNameTab.pop.to_s+"\n"+
+              "File length: "+
+              FileLengthTab.pop.to_s+"\n"+
+              "Height: "+
+              FileHeightTab.pop.to_s+"\n"+
+              "Complexity: "+
+              FileComplexityTab.pop.to_s+"\n"+
+              "Loops:"+
+              FileLoopCounterTab.pop.to_s+"\n"+
+              "Imports:"+
+              FileImportsTab.pop.to_s+"\n"+
+              "\n\n"
     end
+    return response
+  end
 
 
 
@@ -104,7 +116,7 @@ counter = CollectAndComparePrograms.new()
 def checkFolder(folderName='files')
  if Dir.exist?(folderName)
  directoryExists = CollectAndComparePrograms.new
- response = proba.directoryExists
+ response = directoryExists.compareFiles
    return response
  else
    response = "no folder #{folderName} found!"

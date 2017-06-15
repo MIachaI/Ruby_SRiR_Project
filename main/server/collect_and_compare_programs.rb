@@ -1,3 +1,6 @@
+#Author: Michał Prawda - nr 4
+require 'fileutils'
+
 class CollectAndComparePrograms
 =begin
 This is basic concept of my part for the SRiR project. It requires just signal
@@ -24,7 +27,7 @@ def compareFiles(folderName ='files')
   programHeight=0;
   programComplexity=0;
   programLoops=0;
-  Dir.foreach(folderName) {
+  Dir.foreach(folderName) {               # iterate throught all files in directory
 
       |currentFile|
     if (currentFile.length<4)
@@ -66,9 +69,9 @@ def compareFiles(folderName ='files')
     programLoops=0;
   }
 counter = CollectAndComparePrograms.new()
-  liczba = counter.countFiles(folderName).to_s
+  numberOfFiles = counter.countFiles(folderName).to_s
 
-      response = liczba +
+      response = numberOfFiles +
       " files found in #{folderName} directory\n\n"
           "Length - how many characters are in file\n"+
     "Height - how many lines this file contains\n"+
@@ -100,8 +103,8 @@ counter = CollectAndComparePrograms.new()
 
 def checkFolder(folderName='files')
  if Dir.exist?(folderName)
- proba = CollectAndComparePrograms.new
- response = proba.compareFiles
+ directoryExists = CollectAndComparePrograms.new
+ response = proba.directoryExists
    return response
  else
    response = "no folder #{folderName} found!"
@@ -121,6 +124,13 @@ end
       numberOfFiles+=1
     }
     return numberOfFiles
+  end
+
+#this method provides deleting old files sent to store directory
+#@return void - it just makes folder empty
+
+  def deleteFiles(folderName = 'files')
+    FileUtils.rm_rf(Dir.glob("#{folderName}/*"))
   end
 end
 

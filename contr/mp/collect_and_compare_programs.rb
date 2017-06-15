@@ -18,6 +18,7 @@ and also checks how many lines and characters this code have.
 
 # Compare all files in selected input directory
 # @Return report (String)
+
 def compareFiles(folderName ='files')
   programLength=0;
   programHeight=0;
@@ -91,16 +92,16 @@ counter = CollectAndComparePrograms.new()
   return response
     end
 
+
+
 # check if there is invoked folder
   #@return if false - simple information "no folder #{folderName} found!"
   # if true - the method proceed to regular return which is report
+
 def checkFolder(folderName='files')
  if Dir.exist?(folderName)
- printf 'Result:'
- puts "\n"
  proba = CollectAndComparePrograms.new
  response = proba.compareFiles
-
    return response
  else
    response = "no folder #{folderName} found!"
@@ -110,6 +111,7 @@ end
 
 # this method is to check how many files are in certain directory to compare
   #@return number of files (int)
+
   def countFiles(folderName='files')
     numberOfFiles=0
     Dir.foreach(folderName){      |currentFile|
@@ -121,8 +123,6 @@ end
     return numberOfFiles
   end
 end
-#tak = CollectAndComparePrograms.new
-#tak.main
-#puts tak.checkFolder('files')
+
 
 

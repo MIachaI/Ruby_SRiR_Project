@@ -1,6 +1,7 @@
 require 'socket'
 require_relative 'code_tester'
 require_relative '../mp/collect_and_compare_programs'
+require_relative '../mp/../mp/folder_management'
 require_relative 'comm'
 
 class Server
@@ -30,14 +31,17 @@ class Server
           @server_response = "\rKod poprawny"
           @server_response += "\nOutput programu: \n"
           @server_response += code.code_output message.parameters
-          # @server_response += cdcmppr.compareFiles
+          @server_response += cdcmppr.checkFolder('files')
+
         else
           @server_response = "\nBłąd. Opis: \n"
           @server_response += code.syntax_error_msg
         end
         client.print(@server_response)
         client.close
+
       end
     }
+
   end
 end

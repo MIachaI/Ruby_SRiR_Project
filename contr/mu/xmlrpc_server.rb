@@ -1,5 +1,6 @@
 require "xmlrpc/server"
 require_relative 'code_tester'
+require_relative '../mp/../../contr/mp/collect_and_compare_programs'
 
 port = 8080
 if ARGV[0] != nil
@@ -17,6 +18,12 @@ s.add_handler("mu.check_syntax") do |code|
     filename = time.year.to_s + "_" + time.month.to_s + "_" + time.day.to_s + "_" + time.hour.to_s + time.min.to_s + time.sec.to_s + ".rb"
     cd.save_code_to_file(filename)
   end
+  result
+end
+
+s.add_handler("mp.collect_and_compare_programs") do |folderName|
+  report = CollectAndComparePrograms.new
+  result = report.checkFolder(folderName)
   result
 end
 

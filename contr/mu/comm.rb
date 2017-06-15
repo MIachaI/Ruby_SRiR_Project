@@ -17,6 +17,7 @@ class Message
   end
 
   # odczytuje kod i parametry zawarte pomiędzy odpowienimi tagami (<text>, <param>)
+  # @param message wiadomość xml
   # @return self
   def get_vals(message)
     @text = message.match("<text>(.+)</text>")[1] rescue nil

@@ -1,6 +1,7 @@
 require 'socket'
 require_relative 'code_tester'
 require_relative '../mp/collect_and_compare_programs'
+require_relative 'comm'
 
 class Server
   attr_accessor :port, :server_response
@@ -12,9 +13,12 @@ class Server
     server = TCPServer.open(@port)
     loop {
       Thread.start(server.accept) do |client|
+        puts "Polaczono:"
         # odbiera tylko 1000 znakow (do poprawy)
-        codex = client.recv(1000)
-        code = Code.new codex
+        msg = client.recv(1000)
+        message = Message.new()
+        message.get_vals(msg)
+        code = Code.new(message.text)
 
         @server_response = code.check_syntax
         if @server_response
@@ -25,8 +29,8 @@ class Server
           cdcmppr = CollectAndComparePrograms.new
           @server_response = "\rKod poprawny"
           @server_response += "\nOutput programu: \n"
-          @server_response += code.code_output
-          @server_response += cdcmppr.compareFiles
+          @server_response += code.code_output message.parameters
+          # @server_response += cdcmppr.compareFiles
         else
           @server_response = "\nBłąd. Opis: \n"
           @server_response += code.syntax_error_msg
